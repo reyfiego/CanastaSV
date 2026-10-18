@@ -9,7 +9,7 @@ from canastasv.servicios.recolector import recolectar
 
 
 def _cliente(motor):
-    return TestClient(crear_app(motor))
+    return TestClient(crear_app(motor, vigentes={"arroz"}))
 
 
 def test_salud(motor):
@@ -39,3 +39,13 @@ def test_sirve_el_dashboard(motor):
     respuesta = _cliente(motor).get("/")
     assert respuesta.status_code == 200
     assert "CanastaSV" in respuesta.text
+
+
+def test_productos_solo_lista_los_vigentes(motor, arroz, crear_scraper_falso):
+    from canastasv.modelos import ProductoCanonico
+
+    viejo = ProductoCanonico("viejo", "Producto viejo", "Otros", "viejo")
+    with fabrica_de_sesiones(motor)() as sesion:
+        recolectar(sesion, [crear_scraper_falso("walmart", {})], [arroz, viejo], date(2026, 10, 18))
+    codigos = [p["codigo"] for p in _cliente(motor).get("/api/productos").json()]
+    assert codigos == ["arroz"]

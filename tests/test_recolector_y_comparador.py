@@ -73,3 +73,17 @@ def test_supermercado_sin_precios_ese_dia_no_cuenta(sesion, arroz, crear_scraper
     resultado = comparar(sesion)
     assert resultado.supermercados == ["walmart"]
     assert resultado.productos_completos == 1
+
+
+def test_solo_compara_productos_vigentes(sesion, arroz, crear_scraper_falso):
+    from canastasv.modelos import ProductoCanonico, Tamano
+
+    pasta_vieja = ProductoCanonico("pasta-400g", "Pasta", "Despensa", "espagueti", ["espag"], [], Tamano(400, "g"))
+    scraper = crear_scraper_falso(
+        "walmart",
+        {"arroz blanco": [_p("Arroz 1816 g", 2.40)], "espagueti": [_p("Espagueti 400 g", 1.85)]},
+    )
+    recolectar(sesion, [scraper], [arroz, pasta_vieja], date(2026, 10, 18))
+
+    assert len(comparar(sesion).filas) == 2
+    assert [f.codigo for f in comparar(sesion, vigentes={"arroz"}).filas] == ["arroz"]

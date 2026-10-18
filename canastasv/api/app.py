@@ -9,18 +9,22 @@ from sqlalchemy import Engine
 
 from canastasv import __version__
 from canastasv.api.rutas import catalogo, comparativa
+from canastasv.catalogo import codigos_vigentes
 from canastasv.config import RAIZ_PROYECTO, cargar_ajustes
 from canastasv.db.conexion import crear_motor, fabrica_de_sesiones, inicializar
 
 DIR_FRONTEND = RAIZ_PROYECTO / "frontend"
 
 
-def crear_app(motor: Engine | None = None) -> FastAPI:
+def crear_app(motor: Engine | None = None, vigentes: set[str] | None = None) -> FastAPI:
+    """Crea la aplicación. `vigentes` son los códigos de producto a mostrar (por defecto, los de
+    config/productos.json)."""
     motor = motor or crear_motor(cargar_ajustes().ruta_db)
     inicializar(motor)
 
     aplicacion = FastAPI(title="CanastaSV", version=__version__)
     aplicacion.state.fabrica_sesiones = fabrica_de_sesiones(motor)
+    aplicacion.state.vigentes = vigentes if vigentes is not None else codigos_vigentes()
     aplicacion.include_router(catalogo.router)
     aplicacion.include_router(comparativa.router)
 

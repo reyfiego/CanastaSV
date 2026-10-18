@@ -3,7 +3,7 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
-from canastasv.api.dependencias import obtener_sesion
+from canastasv.api.dependencias import obtener_sesion, obtener_vigentes
 from canastasv.api.esquemas import ProductoOut, PuntoHistorialOut, SupermercadoOut
 from canastasv.db import repositorio
 
@@ -16,10 +16,12 @@ def supermercados(sesion: Session = Depends(obtener_sesion)):
 
 
 @router.get("/productos", response_model=list[ProductoOut])
-def productos(sesion: Session = Depends(obtener_sesion)):
+def productos(sesion: Session = Depends(obtener_sesion), vigentes: set[str] = Depends(obtener_vigentes)):
+    """Productos vigentes. El historial de los que ya no están sigue disponible por su código."""
     return [
         ProductoOut(codigo=p.codigo, nombre=p.nombre, categoria=p.categoria)
         for p in repositorio.listar_productos(sesion)
+        if p.codigo in vigentes
     ]
 
 

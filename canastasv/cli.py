@@ -5,7 +5,7 @@ import logging
 import sys
 from datetime import date
 
-from canastasv.catalogo import ErrorDeConfiguracion, cargar_productos, cargar_supermercados
+from canastasv.catalogo import ErrorDeConfiguracion, cargar_productos, cargar_supermercados, codigos_vigentes
 from canastasv.config import cargar_ajustes
 from canastasv.db.conexion import crear_motor, fabrica_de_sesiones, inicializar
 from canastasv.scrapers.fabrica import crear_scraper
@@ -46,7 +46,7 @@ def comando_recolectar(args: argparse.Namespace) -> int:
 
 def comando_comparar(_: argparse.Namespace) -> int:
     with _sesion() as sesion:
-        resultado = comparar(sesion)
+        resultado = comparar(sesion, vigentes=codigos_vigentes())
     if resultado.fecha is None:
         print("Todavía no hay precios guardados. Corre primero: python -m canastasv recolectar")
         return 1

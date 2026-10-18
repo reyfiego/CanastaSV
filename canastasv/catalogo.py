@@ -61,6 +61,15 @@ def cargar_productos(ruta: Path = DIR_CONFIG / "productos.json") -> list[Product
     return productos
 
 
+def codigos_vigentes(ruta: Path = DIR_CONFIG / "productos.json") -> set[str]:
+    """Códigos de los productos que siguen en la configuración.
+
+    La base de datos conserva productos que ya se quitaron o cambiaron de tamaño (con su historial);
+    estos códigos sirven para mostrar solo los vigentes.
+    """
+    return {producto.codigo for producto in cargar_productos(ruta)}
+
+
 def cargar_supermercados(
     ruta: Path = DIR_CONFIG / "supermercados.json",
     incluir_inactivos: bool = False,

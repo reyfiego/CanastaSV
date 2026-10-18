@@ -51,7 +51,14 @@ def separar_dudosos(precios: dict[str, float]) -> tuple[dict[str, float], dict[s
     return validos, dudosos
 
 
-def comparar(sesion: Session, fecha: date | None = None) -> Comparativa:
+def comparar(
+    sesion: Session, fecha: date | None = None, vigentes: set[str] | None = None
+) -> Comparativa:
+    """Compara los precios del día indicado (o del último con datos).
+
+    Si se pasa `vigentes`, solo entran los productos con esos códigos; así no aparecen productos
+    que se quitaron o cambiaron en config/productos.json.
+    """
     fecha = fecha or repositorio.ultima_fecha(sesion)
     if fecha is None:
         return Comparativa(None, [], [], {}, 0, 0.0, 0.0)
@@ -59,6 +66,8 @@ def comparar(sesion: Session, fecha: date | None = None) -> Comparativa:
     por_producto: dict[str, dict] = {}
     for precio in repositorio.precios_del_dia(sesion, fecha):
         producto = precio.producto
+        if vigentes is not None and producto.codigo not in vigentes:
+            continue
         fila = por_producto.setdefault(
             producto.codigo,
             {"producto": producto.nombre, "categoria": producto.categoria, "precios": {}},
