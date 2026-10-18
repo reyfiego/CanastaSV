@@ -68,17 +68,25 @@
   },
   {
     "codigo": "huevos-30",
-    "nombre": "Huevos (cartón de 30)",
+    "nombre": "Huevos grandes (cartón de 30)",
     "categoria": "Lácteos y huevos",
-    "busqueda": "huevos",
+    "busqueda": "huevo",
     "incluir": [
-      "huevo"
+      "huevo",
+      "grande"
     ],
     "excluir": [
+      "smashers",
+      "dino",
+      "juguete",
       "chocolate",
       "pascua",
       "kinder",
-      "codorniz"
+      "codorniz",
+      "mayonesa",
+      "masa",
+      "hervidor",
+      "organizador"
     ],
     "tamano": {
       "valor": 30,
@@ -149,7 +157,7 @@
     }
   },
   {
-    "codigo": "pasta-espagueti-400g",
+    "codigo": "pasta-espagueti-200g",
     "nombre": "Pasta espagueti",
     "categoria": "Despensa",
     "busqueda": "espagueti",
@@ -160,10 +168,12 @@
       "salsa",
       "lata",
       "lasagna",
-      "lasana"
+      "lasana",
+      "gluten",
+      "integral"
     ],
     "tamano": {
-      "valor": 400,
+      "valor": 200,
       "unidad": "g"
     }
   },
@@ -205,25 +215,30 @@
     }
   },
   {
-    "codigo": "avena-400g",
+    "codigo": "avena-hojuela-350g",
     "nombre": "Avena en hojuelas",
     "categoria": "Desayuno",
-    "busqueda": "avena",
+    "busqueda": "avena hojuela",
     "incluir": [
-      "avena"
+      "avena",
+      "hojuela"
     ],
     "excluir": [
+      "cup",
       "galleta",
       "bebida",
       "barra",
-      "leche",
-      "jabon",
-      "shampoo",
-      "crema",
-      "surtido"
+      "proteina",
+      "chocolate",
+      "vainilla",
+      "fresa",
+      "manzana",
+      "canela",
+      "maple",
+      "arandano"
     ],
     "tamano": {
-      "valor": 400,
+      "valor": 350,
       "unidad": "g"
     }
   },
@@ -246,41 +261,44 @@
     }
   },
   {
-    "codigo": "cafe-soluble-200g",
-    "nombre": "Café soluble",
+    "codigo": "cafe-instantaneo-170g",
+    "nombre": "Café instantáneo",
     "categoria": "Desayuno",
-    "busqueda": "cafe soluble",
+    "busqueda": "cafe instantaneo",
     "incluir": [
-      "cafe"
+      "cafe",
+      "instantaneo"
     ],
     "excluir": [
-      "capsula",
-      "grano",
-      "molido",
-      "frio",
-      "bebida",
-      "galleta"
+      "capuccino",
+      "cappuccino",
+      "capucchino",
+      "moca",
+      "vainilla",
+      "taza",
+      "zapatilla"
     ],
     "tamano": {
-      "valor": 200,
+      "valor": 170,
       "unidad": "g"
     }
   },
   {
-    "codigo": "detergente-polvo-1kg",
+    "codigo": "detergente-polvo-1-8kg",
     "nombre": "Detergente en polvo",
     "categoria": "Limpieza",
-    "busqueda": "detergente en polvo",
+    "busqueda": "detergente",
     "incluir": [
       "detergente"
     ],
     "excluir": [
       "liquido",
       "trastes",
-      "lavaplatos"
+      "lavaplatos",
+      "suavizante"
     ],
     "tamano": {
-      "valor": 1000,
+      "valor": 1800,
       "unidad": "g"
     }
   }
