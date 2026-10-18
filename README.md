@@ -101,6 +101,14 @@ Correr las pruebas:
 python -m pytest
 ```
 
+## Publicación
+
+El dashboard se publica gratis en [Render](https://render.com) con la configuración de `render.yaml`:
+
+- Render instala `requirements.txt` y arranca `uvicorn` con Python 3.12 (`.python-version`).
+- Cada commit a `main` vuelve a publicar el sitio. Como la recolección diaria hace un commit con la base de datos, la página se actualiza sola cada mañana.
+- En el plan gratuito el servicio se duerme tras 15 minutos sin visitas y tarda cerca de un minuto en despertar con la siguiente visita.
+
 ## Agregar o ajustar productos
 
 Los productos se configuran en `config/productos.json`, sin tocar código:

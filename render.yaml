@@ -1,0 +1,12 @@
+# Configuración para publicar CanastaSV en Render (https://render.com) como servicio web gratuito.
+# Render vuelve a publicar la página cada vez que llega un commit a main, incluido el commit
+# diario de la recolección, así que el sitio siempre muestra los precios más recientes.
+services:
+  - type: web
+    name: canastasv
+    runtime: python
+    plan: free
+    branch: main
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn canastasv.api.app:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /api/salud
