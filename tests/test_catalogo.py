@@ -10,6 +10,16 @@ def test_la_configuracion_real_es_valida():
     assert {s.tipo for s in cargar_supermercados()} <= {"vtex", "selectos"}
 
 
+def test_supermercados_inactivos(tmp_path):
+    ruta = tmp_path / "supermercados.json"
+    ruta.write_text(json.dumps([
+        {"codigo": "a", "nombre": "A", "tipo": "vtex", "url": "https://a.test"},
+        {"codigo": "b", "nombre": "B", "tipo": "vtex", "url": "https://b.test", "activo": False},
+    ]), encoding="utf-8")
+    assert [s.codigo for s in cargar_supermercados(ruta)] == ["a"]
+    assert [s.codigo for s in cargar_supermercados(ruta, incluir_inactivos=True)] == ["a", "b"]
+
+
 def test_unidad_invalida(tmp_path):
     ruta = tmp_path / "productos.json"
     ruta.write_text(json.dumps([{

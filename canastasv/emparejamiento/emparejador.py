@@ -2,7 +2,7 @@
 
 from dataclasses import dataclass
 
-from canastasv.emparejamiento.normalizador import extraer_tamano, normalizar
+from canastasv.emparejamiento.normalizador import es_multipack, extraer_tamano, normalizar
 from canastasv.modelos import ProductoCanonico, ProductoTienda, Tamano
 
 TOLERANCIA_TAMANO = 0.12  # 12 % arriba o abajo del tamaño buscado
@@ -35,7 +35,8 @@ def emparejar(
     """Devuelve el candidato más barato que cumple palabras clave y tamaño, o None."""
     validos = []
     for candidato in candidatos:
-        if not _cumple_palabras(candidato.nombre, canonico):
+        # En un multipack no queda claro si el tamaño es por unidad o total: se descarta.
+        if es_multipack(candidato.nombre) or not _cumple_palabras(candidato.nombre, canonico):
             continue
         tamano = extraer_tamano(candidato.nombre)
         if _cumple_tamano(tamano, canonico.tamano):

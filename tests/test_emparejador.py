@@ -18,6 +18,11 @@ def test_elige_el_mas_barato_que_cumple(arroz):
     assert resultado.producto.nombre == "Arroz Blanco San Francisco 1816gr"
 
 
+def test_descarta_multipacks(arroz):
+    candidatos = [_p("Arroz Blanco 2 Pack - 1816 g", 1.90), _p("Arroz Blanco - 1,816 g", 2.75)]
+    assert emparejar(arroz, candidatos).producto.precio == 2.75
+
+
 def test_sin_coincidencia_devuelve_none(arroz):
     assert emparejar(arroz, [_p("Frijol Rojo 454 g", 1.0)]) is None
 

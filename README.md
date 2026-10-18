@@ -21,12 +21,13 @@ Próximas etapas: dashboard web y predicción de precios con machine learning.
 
 | Supermercado | Cómo se obtienen los precios |
 |---|---|
-| Walmart | API pública de catálogo (plataforma VTEX) |
-| Maxi Despensa | API pública de catálogo (plataforma VTEX) |
-| La Despensa de Don Juan | API pública de catálogo (plataforma VTEX) |
-| Súper Selectos | Página de búsqueda en HTML |
+| Walmart | API pública de búsqueda (plataforma VTEX) |
+| Maxi Despensa | API pública de búsqueda (plataforma VTEX) |
+| La Despensa de Don Juan | API pública de búsqueda (plataforma VTEX) |
+| Súper Selectos | Página de búsqueda en HTML (desactivado en la recolección automática) |
 
-PriceSmart no se incluye porque su `robots.txt` no permite el acceso automatizado.
+- **Súper Selectos** rechaza (error 403) las peticiones que llegan desde los servidores de GitHub Actions. El scraper está listo, pero el supermercado está marcado con `"activo": false` en `config/supermercados.json` y no se intenta esquivar ese bloqueo. Se puede probar a mano con `python -m canastasv recolectar --supermercado selectos`.
+- **PriceSmart** no se incluye porque su `robots.txt` no permite el acceso automatizado.
 
 ## Instalación
 

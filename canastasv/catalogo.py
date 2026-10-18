@@ -63,7 +63,10 @@ def cargar_productos(ruta: Path = DIR_CONFIG / "productos.json") -> list[Product
 
 def cargar_supermercados(
     ruta: Path = DIR_CONFIG / "supermercados.json",
+    incluir_inactivos: bool = False,
 ) -> list[SupermercadoConfig]:
+    """Devuelve los supermercados configurados. Los que tienen "activo": false se omiten
+    salvo que se pida lo contrario (por ejemplo, para probarlos a mano)."""
     supermercados = []
     for entrada in _leer_json(ruta):
         for clave in ("codigo", "nombre", "tipo", "url"):
@@ -71,12 +74,18 @@ def cargar_supermercados(
                 raise ErrorDeConfiguracion(f"Supermercado sin '{clave}': {entrada}")
         if entrada["tipo"] not in TIPOS_VALIDOS:
             raise ErrorDeConfiguracion(f"Tipo de scraper desconocido: {entrada['tipo']}")
+        activo = entrada.get("activo", True)
+        if not isinstance(activo, bool):
+            raise ErrorDeConfiguracion(f"'activo' debe ser true o false en {entrada['codigo']}")
+        if not activo and not incluir_inactivos:
+            continue
         supermercados.append(
             SupermercadoConfig(
                 codigo=entrada["codigo"],
                 nombre=entrada["nombre"],
                 tipo=entrada["tipo"],
                 url=entrada["url"].rstrip("/"),
+                activo=activo,
             )
         )
     return supermercados

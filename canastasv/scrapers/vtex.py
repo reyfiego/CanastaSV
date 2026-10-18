@@ -1,7 +1,7 @@
 """Scraper para tiendas en la plataforma VTEX (Walmart, Maxi Despensa, Despensa de Don Juan).
 
-VTEX expone una API pública de catálogo que devuelve JSON, así que no hace falta
-leer HTML: es más rápido, más estable y menos pesado para el sitio.
+Usa la API pública "Intelligent Search" de VTEX, la misma que alimenta el buscador
+de la tienda. Devuelve JSON, acepta búsquedas de varias palabras y no requiere leer HTML.
 """
 
 from typing import Any
@@ -10,12 +10,28 @@ from canastasv.modelos import ProductoTienda
 from canastasv.scrapers.base import Scraper
 from canastasv.scrapers.http import ErrorDeDescarga
 
-RUTA_BUSQUEDA = "/api/catalog_system/pub/products/search"
+RUTA_BUSQUEDA = "/api/io/_v/api/intelligent-search/product_search/"
 MAXIMO_RESULTADOS = 30
 
 
-def parsear_productos_vtex(datos: Any) -> list[ProductoTienda]:
-    """Convierte la respuesta JSON de VTEX en ProductoTienda, ignorando lo que no tenga precio."""
+def _url_producto(item: dict, url_base: str) -> str:
+    enlace = str(item.get("link") or "")
+    if enlace.startswith("http"):
+        return enlace
+    if enlace.startswith("/"):
+        return url_base + enlace
+    if item.get("linkText"):
+        return f"{url_base}/{item['linkText']}/p"
+    return url_base
+
+
+def parsear_productos_vtex(datos: Any, url_base: str = "") -> list[ProductoTienda]:
+    """Convierte la respuesta de VTEX en ProductoTienda, ignorando lo que no tenga precio.
+
+    Acepta tanto la respuesta de Intelligent Search ({"products": [...]}) como una lista directa.
+    """
+    if isinstance(datos, dict):
+        datos = datos.get("products")
     if not isinstance(datos, list):
         return []
     productos = []
@@ -38,7 +54,7 @@ def parsear_productos_vtex(datos: Any) -> list[ProductoTienda]:
                 id_tienda=str(item.get("productId", "")),
                 nombre=str(item.get("productName", "")).strip(),
                 precio=round(precio, 2),
-                url=str(item.get("link", "")),
+                url=_url_producto(item, url_base),
                 precio_regular=round(regular, 2) if regular and regular > precio else None,
             )
         )
@@ -48,10 +64,10 @@ def parsear_productos_vtex(datos: Any) -> list[ProductoTienda]:
 class ScraperVtex(Scraper):
     def buscar(self, termino: str) -> list[ProductoTienda]:
         url = self.supermercado.url + RUTA_BUSQUEDA
-        params = {"ft": termino, "_from": 0, "_to": MAXIMO_RESULTADOS - 1}
+        params = {"query": termino, "count": MAXIMO_RESULTADOS}
         respuesta = self.cliente.get(url, params=params)
         try:
             datos = respuesta.json()
         except ValueError as error:
             raise ErrorDeDescarga(f"{self.supermercado.nombre} no devolvió JSON válido") from error
-        return parsear_productos_vtex(datos)
+        return parsear_productos_vtex(datos, self.supermercado.url)

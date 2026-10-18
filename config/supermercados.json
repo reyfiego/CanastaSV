@@ -21,6 +21,7 @@
     "codigo": "selectos",
     "nombre": "Súper Selectos",
     "tipo": "selectos",
-    "url": "https://www.superselectos.com"
+    "url": "https://www.superselectos.com",
+    "activo": false
   }
 ]

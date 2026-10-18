@@ -16,6 +16,7 @@ class SupermercadoConfig:
     nombre: str
     tipo: str
     url: str
+    activo: bool = True
 
 
 @dataclass(frozen=True)

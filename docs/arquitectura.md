@@ -39,13 +39,17 @@ Separar así permite probar cada capa por separado: las pruebas usan scrapers fa
 
 ## Decisiones
 
-**API de VTEX en lugar de leer HTML.** Tres de las cuatro cadenas usan la plataforma VTEX, que ofrece una API pública de catálogo en JSON. Es más estable que leer HTML (no se rompe si cambia el diseño de la página) y más ligera para el sitio. Con un solo scraper se cubren las tres tiendas.
+**API de VTEX en lugar de leer HTML.** Tres de las cuatro cadenas usan la plataforma VTEX. Se usa su API pública "Intelligent Search" (la misma que alimenta el buscador de la tienda), que devuelve JSON. Es más estable que leer HTML (no se rompe si cambia el diseño de la página) y más ligera para el sitio. Con un solo scraper se cubren las tres tiendas. Primero se probó la API antigua de catálogo (`/api/catalog_system/pub/products/search`), pero en estas tiendas responde con error 400 a búsquedas de más de una palabra.
+
+**Súper Selectos desactivado en la recolección automática.** Su sitio responde con 403 a las peticiones que vienen de los servidores de GitHub Actions. En lugar de intentar esquivar el bloqueo (cambiar el User-Agent o usar proxies), el supermercado queda marcado como inactivo. El scraper y sus pruebas se mantienen por si el sitio permite el acceso más adelante.
+
+**Multipacks descartados.** Nombres como "Arroz 2 Pack - 908 g" no dejan claro si el tamaño es por unidad o total, así que el emparejador los ignora para no comparar precios de cantidades distintas.
 
 **HTML para Súper Selectos.** Su tienda no usa VTEX, pero la página de búsqueda (`/products?keyword=`) llega renderizada desde el servidor, así que basta con `requests` + BeautifulSoup, sin un navegador automatizado. El parser busca los enlaces `?productId=` y lee el precio dentro de la tarjeta de cada producto, ignorando ofertas de multicompra ("4X$1.25").
 
 **Productos canónicos configurables.** Cada tienda nombra los productos de forma distinta ("Arroz Blanco San Francisco 1816gr" frente a "Arroz Blanco Dany 1 816 g"). En lugar de escribir el ID de cada producto en cada tienda, se define el producto una sola vez con palabras clave y un tamaño de referencia; el emparejador elige el más barato que cumpla. Así agregar productos no requiere programar.
 
-**Tamaños normalizados.** Los nombres traen tamaños en g, kg, lb, oz, ml, L o unidades. Todo se convierte a g, ml o und para poder comparar (por ejemplo, "2.5 Lb" = 1134 g).
+**Tamaños normalizados.** Los nombres traen tamaños en g, kg, lb, oz, ml, L o unidades. Todo se convierte a g, ml o und para poder comparar (por ejemplo, "2.5 Lb" = 1134 g). En gramos y mililitros, "1,816 g" se lee como 1816 g (separador de miles), mientras que "0,5 kg" se lee como decimal.
 
 **Un precio por día.** La tabla `precios` tiene una restricción única por producto, supermercado y fecha. Si la recolección corre dos veces el mismo día, el segundo valor reemplaza al primero. Esto mantiene un historial limpio para la predicción.
 

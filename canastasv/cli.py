@@ -22,12 +22,16 @@ def _sesion():
 
 def comando_recolectar(args: argparse.Namespace) -> int:
     ajustes = cargar_ajustes()
-    supermercados = cargar_supermercados()
     if args.supermercado:
-        supermercados = [s for s in supermercados if s.codigo in args.supermercado]
+        # Nombrar un supermercado a mano permite probar también los marcados como inactivos.
+        supermercados = [
+            s for s in cargar_supermercados(incluir_inactivos=True) if s.codigo in args.supermercado
+        ]
         if not supermercados:
             print("Ningún supermercado coincide con los códigos indicados.")
             return 1
+    else:
+        supermercados = cargar_supermercados()
     cliente = ClienteHttp(ajustes)
     scrapers = [crear_scraper(s, cliente) for s in supermercados]
 
