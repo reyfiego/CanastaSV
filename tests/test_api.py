@@ -33,3 +33,9 @@ def test_comparativa_e_historial(motor, arroz, crear_scraper_falso):
 
 def test_historial_de_producto_inexistente(motor):
     assert _cliente(motor).get("/api/productos/no-existe/historial").status_code == 404
+
+
+def test_sirve_el_dashboard(motor):
+    respuesta = _cliente(motor).get("/")
+    assert respuesta.status_code == 200
+    assert "CanastaSV" in respuesta.text

@@ -22,10 +22,12 @@ class FilaComparativaOut(BaseModel):
     categoria: str
     precios: dict[str, float]
     mas_barato: str | None
+    dudosos: dict[str, float] = {}
 
 
 class ComparativaOut(BaseModel):
     fecha: date | None
+    supermercados: list[str]
     filas: list[FilaComparativaOut]
     total_por_supermercado: dict[str, float]
     productos_completos: int

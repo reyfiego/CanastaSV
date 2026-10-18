@@ -22,7 +22,7 @@ python -m canastasv recolectar
                           servicios/comparador.py
                                     │
                                     ▼
-                          api/ (FastAPI) ──► dashboard web
+                          api/ (FastAPI) ──► frontend/ (dashboard web)
 ```
 
 ## Capas
@@ -56,6 +56,10 @@ Separar así permite probar cada capa por separado: las pruebas usan scrapers fa
 **Comparación justa.** El costo total por supermercado solo suma productos que aparecen en todas las tiendas ese día; si no, un supermercado con menos productos encontrados parecería más barato.
 
 **SQLite.** No necesita servidor, es un solo archivo y se puede guardar en el repositorio para que GitHub Actions acumule el historial. Si el proyecto crece, SQLAlchemy permite cambiar a PostgreSQL cambiando solo la cadena de conexión.
+
+**Precios dudosos.** Un precio menor a la mitad de la mediana de los demás supermercados se aparta de la comparación (la primera recolección encontró un aceite a $0.25 donde los demás cobraban $1.80 y $1.95, lo que hacía parecer más barato a todo un supermercado). Se necesita al menos tres precios para decidirlo; con dos no se sabe cuál está mal. El dashboard lo muestra tachado para que sea transparente.
+
+**Dashboard sin frameworks.** El frontend es HTML, CSS y JavaScript con módulos ES, servido por la misma aplicación FastAPI. No requiere Node.js ni un paso de compilación, y cada pieza vive en su propio archivo (tokens de diseño, componentes de estilo, componentes de JavaScript y una página por vista). Las gráficas se dibujan en SVG a mano, siguiendo el sistema de diseño. Los nombres de productos vienen de sitios externos, así que se insertan siempre como texto (nunca con innerHTML).
 
 **Uso responsable.** Se respeta `robots.txt` (por eso no se incluye PriceSmart), hay una pausa configurable entre peticiones, reintentos con espera creciente ante errores 429/5xx y un User-Agent que identifica el proyecto.
 

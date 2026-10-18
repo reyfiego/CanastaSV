@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Producto · CanastaSV</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;1,6..72,300&family=Figtree:wght@300;400;600;700&family=JetBrains+Mono&display=swap">
+  <link rel="stylesheet" href="css/main.css">
+  <script type="module" src="js/paginas/producto.js"></script>
+</head>
+<body>
+  <div class="anuncio">Precios tomados cada mañana de las tiendas en línea · Proyecto académico</div>
+
+  <nav class="navegacion" aria-label="Principal">
+    <div class="contenedor navegacion__interior">
+      <a class="marca" href="index.html"><span class="marca__sello" aria-hidden="true"></span>Canasta<em>SV</em></a>
+      <div class="navegacion__enlaces">
+        <a href="index.html#comparar">Comparar</a>
+        <a href="index.html#costo">Costo por súper</a>
+        <a href="index.html#lista">Lista óptima</a>
+      </div>
+      <a class="boton boton--principal" href="index.html#lista">Ver mi lista</a>
+    </div>
+  </nav>
+
+  <main>
+    <header class="contenedor producto__cabecera">
+      <a class="producto__volver" href="index.html#comparar">← Volver al comparador</a>
+      <span class="ceja" id="categoria"></span>
+      <h1 class="producto__titulo" id="nombre">Cargando…</h1>
+      <p class="aviso" id="aviso" role="status">Cargando producto…</p>
+      <div class="estadisticas requiere-datos" id="estadisticas"></div>
+    </header>
+
+    <section class="seccion seccion--papel requiere-datos">
+      <div class="contenedor">
+        <div class="producto__historial-encabezado">
+          <div class="seccion__encabezado seccion__encabezado--compacto">
+            <span class="ceja">Historial</span>
+            <h2 class="seccion__titulo">Cómo ha cambiado <em>el precio</em></h2>
+          </div>
+          <div class="leyenda" id="leyenda-historial"></div>
+        </div>
+        <div class="grafica-caja" id="grafica-historial"></div>
+        <p class="producto__nota">El historial crece con cada recolección diaria. La predicción de precios se agregará cuando haya suficientes semanas de datos.</p>
+      </div>
+    </section>
+
+    <section class="seccion requiere-datos">
+      <div class="contenedor rejilla-dos">
+        <article class="tarjeta">
+          <span class="ceja">Hoy</span>
+          <h2 class="tarjeta__titulo">Dónde <em>comprarlo</em></h2>
+          <ul class="lista-filas" id="precios-hoy"></ul>
+          <p class="tabla__nota" id="fecha-precios"></p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="pie">
+    <div class="contenedor pie__interior">
+      <span>CanastaSV · Proyecto final de Programación Computacional III</span>
+      <span>Precios públicos de las tiendas en línea · <a href="https://github.com/reyfiego/CanastaSV">Repositorio</a> · <a href="/docs">API</a></span>
+    </div>
+  </footer>
+</body>
+</html>

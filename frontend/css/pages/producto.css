@@ -1,0 +1,38 @@
+/* Estilos propios de la página de detalle de producto. */
+.producto__cabecera {
+  padding-top: var(--espacio-48);
+  padding-bottom: var(--espacio-64);
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-24);
+}
+
+.producto__volver {
+  font-size: var(--texto-chico);
+  color: var(--color-grafito);
+  text-decoration: none;
+}
+
+.producto__titulo {
+  font-size: clamp(44px, 6vw, 64px);
+  line-height: 1;
+}
+
+.producto__historial-encabezado {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: var(--espacio-16);
+  margin-bottom: var(--espacio-24);
+}
+
+.producto__nota {
+  margin-top: var(--espacio-16);
+  font-size: var(--texto-chico);
+  color: var(--color-grafito);
+}
+
+.seccion__encabezado--compacto {
+  margin-bottom: 0;
+}

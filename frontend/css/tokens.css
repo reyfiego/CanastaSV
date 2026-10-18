@@ -1,0 +1,55 @@
+/* Tokens del sistema de diseño (DESIGN.md): colores, tipografía, espacios y formas. */
+:root {
+  /* Colores */
+  --color-terracota: #b05a36;
+  --color-terracota-suave: rgba(176, 90, 54, 0.2);
+  --color-pergamino: #fef9ef;
+  --color-papel: #f5eee1;
+  --color-taupe: #d1c9bf;
+  --color-tinta: #2a2b2f;
+  --color-carbon: #333333;
+  --color-grafito: #515151;
+  --color-ceniza: #808988;
+
+  /* Familias tipográficas */
+  --fuente-titulos: "Newsreader", "Tiempos Headline", Georgia, serif;
+  --fuente-texto: "Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --fuente-mono: "JetBrains Mono", ui-monospace, Consolas, monospace;
+  --tracking-texto: -0.023em;
+
+  /* Escala tipográfica */
+  --texto-ceja: 12px;
+  --texto-chico: 14px;
+  --texto-base: 16px;
+  --texto-grande: 18px;
+  --texto-subtitulo: 20px;
+  --texto-titulo: 34px;
+  --texto-titulo-grande: 45px;
+  --texto-display: 64px;
+  --texto-hero: clamp(48px, 7vw, 80px);
+
+  /* Espacios (base 8px) */
+  --espacio-8: 8px;
+  --espacio-16: 16px;
+  --espacio-24: 24px;
+  --espacio-32: 32px;
+  --espacio-40: 40px;
+  --espacio-48: 48px;
+  --espacio-64: 64px;
+  --espacio-80: 80px;
+  --espacio-96: 96px;
+
+  /* Formas */
+  --radio-tarjeta: 24px;
+  --radio-boton: 40px;
+  --radio-pildora: 9999px;
+  --radio-barra: 2px;
+
+  /* Sombras */
+  --sombra-suave: rgba(0, 0, 0, 0.15) 0 0 20px 0;
+  --sombra-flotante: rgba(42, 43, 47, 0.1) 12px 32px 80px 0;
+
+  /* Layout */
+  --ancho-maximo: 1280px;
+  --margen-pagina: 24px;
+}

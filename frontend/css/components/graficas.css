@@ -1,0 +1,61 @@
+/* Gráficas en SVG: barras terracota de esquinas rectas y ejes taupe, sin cuadrícula. */
+.grafica {
+  width: 100%;
+  height: auto;
+  display: block;
+  overflow: visible;
+}
+
+.grafica__eje {
+  stroke: var(--color-taupe);
+  stroke-width: 1;
+}
+
+.grafica__texto {
+  font-family: var(--fuente-texto);
+  font-size: 12px;
+  fill: var(--color-grafito);
+}
+
+.grafica__valor {
+  font-family: var(--fuente-texto);
+  font-size: 13px;
+  font-weight: 600;
+  fill: var(--color-tinta);
+}
+
+.grafica__barra {
+  fill: var(--color-grafito);
+}
+
+.grafica__barra--destacada {
+  fill: var(--color-terracota);
+}
+
+.grafica__linea {
+  fill: none;
+  stroke-width: 2;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+.leyenda {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--espacio-16) var(--espacio-24);
+  font-size: var(--texto-chico);
+  color: var(--color-carbon);
+}
+
+.leyenda__item {
+  display: flex;
+  align-items: center;
+  gap: var(--espacio-8);
+}
+
+.grafica-caja {
+  background: var(--color-pergamino);
+  border-radius: var(--radio-tarjeta);
+  padding: var(--espacio-24);
+  overflow-x: auto;
+}

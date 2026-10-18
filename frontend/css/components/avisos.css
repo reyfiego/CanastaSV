@@ -1,0 +1,20 @@
+/* Mensajes de estado: cargando, sin datos o error de conexión con la API. */
+.aviso {
+  background: var(--color-papel);
+  border-radius: var(--radio-tarjeta);
+  padding: var(--espacio-32);
+  color: var(--color-carbon);
+}
+
+.aviso[hidden] {
+  display: none;
+}
+
+.aviso strong {
+  color: var(--color-tinta);
+}
+
+/* Las secciones con datos se muestran solo cuando la página cargó precios. */
+body:not(.con-datos) .requiere-datos {
+  display: none;
+}

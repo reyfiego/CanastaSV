@@ -1,0 +1,84 @@
+/* Tabla comparativa de precios. El precio más bajo de cada fila va en terracota. */
+.tabla-caja {
+  background: var(--color-pergamino);
+  border-radius: var(--radio-tarjeta);
+  padding: var(--espacio-8) var(--espacio-32) var(--espacio-16);
+  overflow-x: auto;
+}
+
+.tabla {
+  width: 100%;
+  min-width: 640px;
+  border-collapse: collapse;
+}
+
+.tabla th,
+.tabla td {
+  padding: var(--espacio-16) var(--espacio-8);
+  border-bottom: 1px solid var(--color-taupe);
+  text-align: left;
+  vertical-align: middle;
+}
+
+.tabla th {
+  font-size: var(--texto-ceja);
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--color-grafito);
+}
+
+.tabla td.numero,
+.tabla th.numero {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.tabla__producto {
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.tabla__categoria {
+  display: block;
+  font-size: var(--texto-chico);
+  color: var(--color-grafito);
+  font-weight: 400;
+}
+
+.precio--mejor {
+  color: var(--color-terracota);
+  font-weight: 600;
+}
+
+.precio--vacio {
+  color: var(--color-ceniza);
+}
+
+.tabla__nota {
+  margin-top: var(--espacio-16);
+  font-size: var(--texto-chico);
+  color: var(--color-grafito);
+}
+
+.tabla__vacia {
+  padding: var(--espacio-32) 0;
+  color: var(--color-grafito);
+}
+
+/* La primera celda de cada fila es un encabezado de fila (accesible), pero se ve como texto normal. */
+.tabla tbody th {
+  font-size: var(--texto-base);
+  font-weight: 400;
+  text-transform: none;
+  color: var(--color-tinta);
+}
+
+.precio--dudoso {
+  color: var(--color-grafito);
+}
+
+.precio__marca {
+  display: block;
+  font-size: var(--texto-ceja);
+  color: var(--color-grafito);
+}

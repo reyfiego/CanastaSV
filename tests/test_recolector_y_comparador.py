@@ -48,3 +48,28 @@ def test_un_error_no_detiene_la_recoleccion(sesion, arroz, crear_scraper_falso):
 
 def test_comparar_sin_datos(sesion):
     assert comparar(sesion).fecha is None
+
+
+def test_separa_precios_dudosos():
+    from canastasv.servicios.comparador import separar_dudosos
+
+    validos, dudosos = separar_dudosos({"donjuan": 0.25, "maxi": 1.80, "walmart": 1.95})
+    assert dudosos == {"donjuan": 0.25}
+    assert validos == {"maxi": 1.80, "walmart": 1.95}
+
+
+def test_con_dos_precios_no_se_aparta_ninguno():
+    from canastasv.servicios.comparador import separar_dudosos
+
+    assert separar_dudosos({"a": 0.25, "b": 1.80}) == ({"a": 0.25, "b": 1.80}, {})
+
+
+def test_supermercado_sin_precios_ese_dia_no_cuenta(sesion, arroz, crear_scraper_falso):
+    scrapers = [
+        crear_scraper_falso("walmart", {"arroz blanco": [_p("Arroz 1816 g", 2.40)]}),
+        crear_scraper_falso("selectos", {}),  # registrado, pero sin precios
+    ]
+    recolectar(sesion, scrapers, [arroz], date(2026, 10, 18))
+    resultado = comparar(sesion)
+    assert resultado.supermercados == ["walmart"]
+    assert resultado.productos_completos == 1

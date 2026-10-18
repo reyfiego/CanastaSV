@@ -1,0 +1,59 @@
+/* Estilos base: reset mínimo, fondo pergamino y tipografía. */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--color-pergamino);
+  color: var(--color-tinta);
+  font-family: var(--fuente-texto);
+  font-size: var(--texto-base);
+  line-height: 1.5;
+  letter-spacing: var(--tracking-texto);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3 {
+  margin: 0;
+  font-family: var(--fuente-titulos);
+  font-weight: 400;
+  letter-spacing: normal;
+}
+
+/* La palabra en cursiva de cada título: el rasgo tipográfico del sistema. */
+h1 em,
+h2 em,
+h3 em {
+  font-weight: 300;
+}
+
+p {
+  margin: 0;
+}
+
+a {
+  color: inherit;
+}
+
+a:hover {
+  color: var(--color-terracota);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-terracota);
+  outline-offset: 3px;
+}
+
+.solo-lectores {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}

@@ -1,0 +1,35 @@
+/* Botones con forma de píldora: principal (relleno) y secundario (contorno). */
+.boton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 12px 24px;
+  border-radius: var(--radio-boton);
+  font-family: inherit;
+  font-size: var(--texto-base);
+  font-weight: 600;
+  letter-spacing: var(--tracking-texto);
+  text-decoration: none;
+  cursor: pointer;
+  border: 1.5px solid var(--color-terracota);
+}
+
+.boton--principal {
+  background: var(--color-terracota);
+  color: var(--color-pergamino);
+}
+
+.boton--principal:hover {
+  color: var(--color-pergamino);
+  filter: brightness(0.94);
+}
+
+.boton--secundario {
+  background: transparent;
+  color: var(--color-terracota);
+}
+
+.boton--secundario:hover {
+  background: var(--color-terracota-suave);
+}

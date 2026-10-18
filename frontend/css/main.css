@@ -1,0 +1,14 @@
+/* Punto de entrada de estilos: importa cada parte en orden. */
+@import url("tokens.css");
+@import url("base.css");
+@import url("layout.css");
+@import url("components/botones.css");
+@import url("components/tarjetas.css");
+@import url("components/estadisticas.css");
+@import url("components/filtros.css");
+@import url("components/tabla.css");
+@import url("components/graficas.css");
+@import url("components/listas.css");
+@import url("components/avisos.css");
+@import url("pages/inicio.css");
+@import url("pages/producto.css");

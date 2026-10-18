@@ -53,7 +53,9 @@ def comando_comparar(_: argparse.Namespace) -> int:
     print(f"Comparativa del {resultado.fecha}\n")
     for fila in resultado.filas:
         precios = "  ".join(f"{s}: ${p:.2f}" for s, p in sorted(fila.precios.items()))
-        print(f"{fila.producto:<26} {precios}   -> más barato: {fila.mas_barato}")
+        dudosos = "  ".join(f"{s}: ${p:.2f}?" for s, p in sorted(fila.dudosos.items()))
+        extra = f"   (dudoso: {dudosos})" if dudosos else ""
+        print(f"{fila.producto:<26} {precios}   -> más barato: {fila.mas_barato}{extra}")
     if resultado.total_por_supermercado:
         print(f"\nTotales ({resultado.productos_completos} productos presentes en todos):")
         for codigo, total in resultado.total_por_supermercado.items():

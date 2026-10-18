@@ -12,10 +12,11 @@ Proyecto final de Programación Computacional III.
 - **Empareja** cada producto de la canasta con el producto equivalente de cada tienda (por palabras clave y tamaño).
 - **Guarda** un precio por producto, supermercado y día en una base de datos SQLite.
 - **Compara** precios, calcula el costo total por supermercado y la "lista óptima" (comprar cada producto donde está más barato).
-- **Expone** los datos en una API web para el dashboard.
+- **Marca precios dudosos**: si un precio es menor a la mitad de lo que cuesta en los demás supermercados (posible error de la tienda), se muestra tachado y no entra en la comparación.
+- **Muestra** todo en un dashboard web: comparador con buscador y filtros, costo de la canasta por supermercado, lista óptima e historial de cada producto.
 - **Se ejecuta solo** todos los días con GitHub Actions, así el historial crece aunque nadie encienda la computadora.
 
-Próximas etapas: dashboard web y predicción de precios con machine learning.
+Próxima etapa: predicción de precios con machine learning, cuando haya suficiente historial.
 
 ## Supermercados
 
@@ -85,11 +86,14 @@ Ver la comparativa del último día con datos:
 python -m canastasv comparar
 ```
 
-Levantar la API web (documentación interactiva en http://127.0.0.1:8000/docs):
+Levantar el dashboard web y la API:
 
 ```bash
 uvicorn canastasv.api.app:app --reload
 ```
+
+- Dashboard: http://127.0.0.1:8000
+- Documentación interactiva de la API: http://127.0.0.1:8000/docs
 
 Correr las pruebas:
 
@@ -132,6 +136,9 @@ canastasv/
   db/                  Tablas, conexión y consultas (SQLAlchemy)
   servicios/           Recolector y comparador
   api/                 API FastAPI, separada por rutas
+frontend/              Dashboard web (HTML, CSS y JavaScript sin frameworks)
+  css/                 tokens, base, layout, components/ y pages/
+  js/                  api, formato, dom, componentes/ y paginas/
 config/                Productos y supermercados
 data/                  Base de datos SQLite con el historial
 docs/                  Documentación técnica

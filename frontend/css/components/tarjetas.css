@@ -1,0 +1,47 @@
+/* Tarjetas sobre papel envejecido con número de paso en terracota. */
+.tarjeta {
+  background: var(--color-papel);
+  border-radius: var(--radio-tarjeta);
+  padding: var(--espacio-40) var(--espacio-32);
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-16);
+  min-width: 0;
+}
+
+.tarjeta--pergamino {
+  background: var(--color-pergamino);
+}
+
+.tarjeta__titulo {
+  font-size: var(--texto-titulo);
+  line-height: 1.15;
+}
+
+.tarjeta__texto {
+  color: var(--color-carbon);
+}
+
+.ceja {
+  font-size: var(--texto-ceja);
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--color-terracota);
+  letter-spacing: -0.28px;
+}
+
+.rejilla-dos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: var(--espacio-24);
+}
+
+@media (max-width: 420px) {
+  .rejilla-dos {
+    grid-template-columns: 1fr;
+  }
+
+  .tarjeta {
+    padding: var(--espacio-32) var(--espacio-24);
+  }
+}

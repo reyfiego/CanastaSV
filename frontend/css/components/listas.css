@@ -1,0 +1,50 @@
+/* Listas de filas "nombre — valor" con líneas divisorias, usadas en lista óptima y precios. */
+.lista-filas {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.lista-filas__fila {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--espacio-16);
+  padding: 10px 0;
+  border-bottom: 1px solid var(--color-taupe);
+  font-size: 15px;
+}
+
+.lista-filas__fila:last-child {
+  border-bottom: none;
+}
+
+.lista-filas__detalle {
+  color: var(--color-grafito);
+  text-align: right;
+}
+
+.lista-filas__detalle strong {
+  color: var(--color-tinta);
+}
+
+.total {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--espacio-16);
+  padding-top: var(--espacio-8);
+}
+
+.total__etiqueta {
+  font-size: var(--texto-chico);
+  color: var(--color-grafito);
+}
+
+.total__valor {
+  font-family: var(--fuente-titulos);
+  font-size: var(--texto-titulo);
+  letter-spacing: normal;
+}

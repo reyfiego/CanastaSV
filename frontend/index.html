@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CanastaSV · Compara la canasta básica</title>
+  <meta name="description" content="Comparador diario de precios de la canasta básica en supermercados de El Salvador.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;1,6..72,300&family=Figtree:wght@300;400;600;700&family=JetBrains+Mono&display=swap">
+  <link rel="stylesheet" href="css/main.css">
+  <script type="module" src="js/paginas/inicio.js"></script>
+</head>
+<body>
+  <div class="anuncio">Precios tomados cada mañana de las tiendas en línea · Proyecto académico</div>
+
+  <nav class="navegacion" aria-label="Principal">
+    <div class="contenedor navegacion__interior">
+      <a class="marca" href="index.html"><span class="marca__sello" aria-hidden="true"></span>Canasta<em>SV</em></a>
+      <div class="navegacion__enlaces">
+        <a href="#comparar">Comparar</a>
+        <a href="#costo">Costo por súper</a>
+        <a href="#lista">Lista óptima</a>
+      </div>
+      <a class="boton boton--principal" href="#lista">Ver mi lista</a>
+    </div>
+  </nav>
+
+  <main>
+    <header class="contenedor hero">
+      <span class="ceja" id="fecha-actualizacion">Cargando precios…</span>
+      <h1 class="hero__titulo">Compra la canasta <em>sin adivinar</em></h1>
+      <p class="hero__texto">Comparamos cada día los precios de la canasta básica en supermercados de El Salvador y te decimos dónde te sale más barato.</p>
+      <div class="hero__acciones">
+        <a class="boton boton--principal" href="#comparar">Comparar precios</a>
+        <a class="boton boton--secundario" href="#lista">Ver la lista óptima</a>
+      </div>
+    </header>
+
+    <div class="contenedor">
+      <p class="aviso" id="aviso" role="status">Cargando precios…</p>
+    </div>
+
+    <section class="contenedor inicio__estadisticas requiere-datos" aria-label="Resumen">
+      <div class="estadisticas" id="estadisticas"></div>
+    </section>
+
+    <section class="seccion seccion--papel requiere-datos" id="comparar">
+      <div class="contenedor">
+        <div class="seccion__encabezado">
+          <span class="ceja">Comparador</span>
+          <h2 class="seccion__titulo">Precio por precio, <em>súper por súper</em></h2>
+        </div>
+        <div class="filtros" id="filtros"></div>
+        <div class="tabla-caja">
+          <div id="tabla"></div>
+          <p class="tabla__nota">En terracota, el precio más bajo de cada producto. Un precio tachado es mucho menor que en los demás supermercados (posible error de la tienda) y no entra en la comparación. Toca un producto para ver su historial.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="seccion requiere-datos">
+      <div class="contenedor rejilla-dos">
+        <article class="tarjeta" id="costo">
+          <span class="ceja">01</span>
+          <h2 class="tarjeta__titulo">Costo total de la <em>canasta</em></h2>
+          <div id="grafica-costo"></div>
+          <p class="tabla__nota" id="nota-costo"></p>
+        </article>
+
+        <article class="tarjeta" id="lista">
+          <span class="ceja">02</span>
+          <h2 class="tarjeta__titulo">Tu lista <em>óptima</em></h2>
+          <p class="tarjeta__texto">Dónde conviene comprar cada producto hoy.</p>
+          <ul class="lista-filas" id="lista-optima"></ul>
+          <div class="total">
+            <span class="total__etiqueta">Total comprando cada producto donde está más barato</span>
+            <span class="total__valor" id="total-optima"></span>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="pie">
+    <div class="contenedor pie__interior">
+      <span>CanastaSV · Proyecto final de Programación Computacional III</span>
+      <span>Precios públicos de las tiendas en línea · <a href="https://github.com/reyfiego/CanastaSV">Repositorio</a> · <a href="/docs">API</a></span>
+    </div>
+  </footer>
+</body>
+</html>

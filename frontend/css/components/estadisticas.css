@@ -1,0 +1,39 @@
+/* Bloques de cifra grande en serif separados por líneas taupe. */
+.estadisticas {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  border-top: 1px solid var(--color-taupe);
+  border-bottom: 1px solid var(--color-taupe);
+}
+
+.estadistica {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: var(--espacio-24) var(--espacio-24) var(--espacio-24) 0;
+}
+
+.estadistica + .estadistica {
+  border-left: 1px solid var(--color-taupe);
+  padding-left: var(--espacio-24);
+}
+
+.estadistica__valor {
+  font-family: var(--fuente-titulos);
+  font-size: var(--texto-titulo-grande);
+  line-height: 1.1;
+  letter-spacing: normal;
+}
+
+.estadistica__etiqueta {
+  font-size: var(--texto-chico);
+  color: var(--color-grafito);
+}
+
+@media (max-width: 480px) {
+  .estadistica + .estadistica {
+    border-left: none;
+    border-top: 1px solid var(--color-taupe);
+    padding-left: 0;
+  }
+}
