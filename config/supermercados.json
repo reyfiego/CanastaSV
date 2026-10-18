@@ -1,0 +1,26 @@
+[
+  {
+    "codigo": "walmart",
+    "nombre": "Walmart",
+    "tipo": "vtex",
+    "url": "https://www.walmart.com.sv"
+  },
+  {
+    "codigo": "maxi",
+    "nombre": "Maxi Despensa",
+    "tipo": "vtex",
+    "url": "https://www.maxidespensa.com.sv"
+  },
+  {
+    "codigo": "donjuan",
+    "nombre": "La Despensa de Don Juan",
+    "tipo": "vtex",
+    "url": "https://www.ladespensadedonjuan.com.sv"
+  },
+  {
+    "codigo": "selectos",
+    "nombre": "Súper Selectos",
+    "tipo": "selectos",
+    "url": "https://www.superselectos.com"
+  }
+]

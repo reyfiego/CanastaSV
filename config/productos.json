@@ -1,0 +1,128 @@
+[
+  {
+    "codigo": "arroz-blanco-4lb",
+    "nombre": "Arroz blanco",
+    "categoria": "Granos",
+    "busqueda": "arroz blanco",
+    "incluir": ["arroz"],
+    "excluir": ["precocido", "jasmine", "integral", "harina", "nestum", "salpor", "galleta", "bebida"],
+    "tamano": {"valor": 1816, "unidad": "g"}
+  },
+  {
+    "codigo": "frijol-rojo-1lb",
+    "nombre": "Frijol rojo",
+    "categoria": "Granos",
+    "busqueda": "frijol rojo",
+    "incluir": ["frijol", "rojo"],
+    "excluir": ["molido", "volteado", "refrito", "lata", "sopa", "cocido"],
+    "tamano": {"valor": 454, "unidad": "g"}
+  },
+  {
+    "codigo": "aceite-vegetal-750ml",
+    "nombre": "Aceite vegetal",
+    "categoria": "Despensa",
+    "busqueda": "aceite vegetal",
+    "incluir": ["aceite"],
+    "excluir": ["oliva", "spray", "motor", "bebe", "coco", "almendra", "aguacate"],
+    "tamano": {"valor": 750, "unidad": "ml"}
+  },
+  {
+    "codigo": "huevos-30",
+    "nombre": "Huevos (cartón de 30)",
+    "categoria": "Lácteos y huevos",
+    "busqueda": "huevos",
+    "incluir": ["huevo"],
+    "excluir": ["chocolate", "pascua", "kinder", "codorniz"],
+    "tamano": {"valor": 30, "unidad": "und"}
+  },
+  {
+    "codigo": "leche-entera-1l",
+    "nombre": "Leche entera",
+    "categoria": "Lácteos y huevos",
+    "busqueda": "leche entera",
+    "incluir": ["leche", "entera"],
+    "excluir": ["polvo", "condensada", "evaporada", "deslactosada", "saborizada", "chocolate", "fresa"],
+    "tamano": {"valor": 946, "unidad": "ml"}
+  },
+  {
+    "codigo": "azucar-blanca-2-5lb",
+    "nombre": "Azúcar blanca",
+    "categoria": "Despensa",
+    "busqueda": "azucar blanca",
+    "incluir": ["azucar"],
+    "excluir": ["morena", "glas", "glass", "sustituto", "splenda", "sin azucar", "dietetica"],
+    "tamano": {"valor": 1134, "unidad": "g"}
+  },
+  {
+    "codigo": "harina-maiz-1kg",
+    "nombre": "Harina de maíz",
+    "categoria": "Granos",
+    "busqueda": "harina de maiz",
+    "incluir": ["harina", "maiz"],
+    "excluir": ["tortilla", "atol"],
+    "tamano": {"valor": 1000, "unidad": "g"}
+  },
+  {
+    "codigo": "pasta-espagueti-400g",
+    "nombre": "Pasta espagueti",
+    "categoria": "Despensa",
+    "busqueda": "espagueti",
+    "incluir": ["espag"],
+    "excluir": ["salsa", "lata"],
+    "tamano": {"valor": 400, "unidad": "g"}
+  },
+  {
+    "codigo": "sal-1lb",
+    "nombre": "Sal de mesa",
+    "categoria": "Despensa",
+    "busqueda": "sal",
+    "incluir": ["sal"],
+    "excluir": ["salsa", "salchicha", "salami", "salmon", "salado", "galleta", "consome", "sazon"],
+    "tamano": {"valor": 454, "unidad": "g"}
+  },
+  {
+    "codigo": "margarina-1lb",
+    "nombre": "Margarina",
+    "categoria": "Lácteos y huevos",
+    "busqueda": "margarina",
+    "incluir": ["margarina"],
+    "excluir": [],
+    "tamano": {"valor": 454, "unidad": "g"}
+  },
+  {
+    "codigo": "avena-400g",
+    "nombre": "Avena en hojuelas",
+    "categoria": "Desayuno",
+    "busqueda": "avena",
+    "incluir": ["avena"],
+    "excluir": ["galleta", "bebida", "barra", "leche", "jabon", "shampoo", "crema"],
+    "tamano": {"valor": 400, "unidad": "g"}
+  },
+  {
+    "codigo": "atun-agua-140g",
+    "nombre": "Atún en agua",
+    "categoria": "Despensa",
+    "busqueda": "atun en agua",
+    "incluir": ["atun", "agua"],
+    "excluir": ["gato", "mascota"],
+    "tamano": {"valor": 140, "unidad": "g"}
+  },
+  {
+    "codigo": "cafe-soluble-200g",
+    "nombre": "Café soluble",
+    "categoria": "Desayuno",
+    "busqueda": "cafe soluble",
+    "incluir": ["cafe"],
+    "excluir": ["capsula", "grano", "molido", "frio", "bebida", "galleta"],
+    "tamano": {"valor": 200, "unidad": "g"}
+  },
+  {
+    "codigo": "detergente-polvo-1kg",
+    "nombre": "Detergente en polvo",
+    "categoria": "Limpieza",
+    "busqueda": "detergente en polvo",
+    "incluir": ["detergente"],
+    "excluir": ["liquido", "trastes", "lavaplatos"],
+    "tamano": {"valor": 1000, "unidad": "g"}
+  }
+]
