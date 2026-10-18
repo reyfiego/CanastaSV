@@ -45,3 +45,37 @@ def test_descarta_sin_precio_sin_stock_o_mal_formados():
 
 def test_respuesta_inesperada():
     assert parsear_productos_vtex({"error": "x"}, BASE) == []
+
+
+class _ClienteFalso:
+    """Simula el cliente HTTP: falla en Intelligent Search y responde en el catálogo."""
+
+    def __init__(self):
+        self.llamadas = []
+
+    def get(self, url, params=None):
+        from canastasv.scrapers.http import ErrorDeDescarga
+
+        self.llamadas.append((url, params))
+        if "intelligent-search" in url:
+            raise ErrorDeDescarga("400 en intelligent-search")
+
+        class _Respuesta:
+            def json(self_inner):
+                return [_item("Arroz Blanco 1816 g", 2.4)]
+
+        return _Respuesta()
+
+
+def test_si_falla_intelligent_search_usa_el_catalogo_con_la_primera_palabra():
+    from canastasv.modelos import SupermercadoConfig
+    from canastasv.scrapers.vtex import ScraperVtex
+
+    cliente = _ClienteFalso()
+    scraper = ScraperVtex(SupermercadoConfig("w", "W", "vtex", BASE), cliente)
+
+    assert scraper.buscar("arroz blanco")[0].precio == 2.4
+    assert cliente.llamadas[-1][1]["ft"] == "arroz"
+
+    scraper.buscar("frijol rojo")  # ya no vuelve a intentar Intelligent Search
+    assert sum("intelligent-search" in url for url, _ in cliente.llamadas) == 1

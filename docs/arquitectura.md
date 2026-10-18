@@ -39,7 +39,7 @@ Separar así permite probar cada capa por separado: las pruebas usan scrapers fa
 
 ## Decisiones
 
-**API de VTEX en lugar de leer HTML.** Tres de las cuatro cadenas usan la plataforma VTEX. Se usa su API pública "Intelligent Search" (la misma que alimenta el buscador de la tienda), que devuelve JSON. Es más estable que leer HTML (no se rompe si cambia el diseño de la página) y más ligera para el sitio. Con un solo scraper se cubren las tres tiendas. Primero se probó la API antigua de catálogo (`/api/catalog_system/pub/products/search`), pero en estas tiendas responde con error 400 a búsquedas de más de una palabra.
+**API de VTEX en lugar de leer HTML.** Tres de las cuatro cadenas usan la plataforma VTEX. Se usa su API pública "Intelligent Search" (la misma que alimenta el buscador de la tienda), que devuelve JSON. Es más estable que leer HTML (no se rompe si cambia el diseño de la página) y más ligera para el sitio. Con un solo scraper se cubren las tres tiendas. Como respaldo se usa la API de catálogo (`/api/catalog_system/pub/products/search`), que en estas tiendas solo acepta búsquedas de una palabra: si Intelligent Search falla, el scraper busca con la primera palabra ("arroz" en vez de "arroz blanco") y el emparejador filtra el resto. Ante cualquier error, el log muestra el código y el inicio de la respuesta del servidor.
 
 **Súper Selectos desactivado en la recolección automática.** Su sitio responde con 403 a las peticiones que vienen de los servidores de GitHub Actions. En lugar de intentar esquivar el bloqueo (cambiar el User-Agent o usar proxies), el supermercado queda marcado como inactivo. El scraper y sus pruebas se mantienen por si el sitio permite el acceso más adelante.
 

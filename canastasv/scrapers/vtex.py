@@ -1,17 +1,26 @@
 """Scraper para tiendas en la plataforma VTEX (Walmart, Maxi Despensa, Despensa de Don Juan).
 
-Usa la API pública "Intelligent Search" de VTEX, la misma que alimenta el buscador
-de la tienda. Devuelve JSON, acepta búsquedas de varias palabras y no requiere leer HTML.
+Usa dos APIs públicas de VTEX que devuelven JSON:
+
+1. "Intelligent Search", la misma del buscador de la tienda. Acepta búsquedas de varias palabras.
+2. La API de catálogo, como respaldo. En estas tiendas solo acepta una palabra, así que se busca
+   con la primera palabra del término y el emparejador filtra el resto.
+
+Si la primera falla, el scraper se pasa a la segunda para el resto de la recolección.
 """
 
+import logging
 from typing import Any
 
 from canastasv.modelos import ProductoTienda
 from canastasv.scrapers.base import Scraper
 from canastasv.scrapers.http import ErrorDeDescarga
 
-RUTA_BUSQUEDA = "/api/io/_v/api/intelligent-search/product_search/"
-MAXIMO_RESULTADOS = 30
+log = logging.getLogger(__name__)
+
+RUTA_INTELLIGENT_SEARCH = "/api/io/_v/api/intelligent-search/product_search/"
+RUTA_CATALOGO = "/api/catalog_system/pub/products/search"
+MAXIMO_RESULTADOS = 20
 
 
 def _url_producto(item: dict, url_base: str) -> str:
@@ -28,7 +37,7 @@ def _url_producto(item: dict, url_base: str) -> str:
 def parsear_productos_vtex(datos: Any, url_base: str = "") -> list[ProductoTienda]:
     """Convierte la respuesta de VTEX en ProductoTienda, ignorando lo que no tenga precio.
 
-    Acepta tanto la respuesta de Intelligent Search ({"products": [...]}) como una lista directa.
+    Acepta tanto la respuesta de Intelligent Search ({"products": [...]}) como la del catálogo (lista).
     """
     if isinstance(datos, dict):
         datos = datos.get("products")
@@ -62,12 +71,34 @@ def parsear_productos_vtex(datos: Any, url_base: str = "") -> list[ProductoTiend
 
 
 class ScraperVtex(Scraper):
-    def buscar(self, termino: str) -> list[ProductoTienda]:
-        url = self.supermercado.url + RUTA_BUSQUEDA
-        params = {"query": termino, "count": MAXIMO_RESULTADOS}
-        respuesta = self.cliente.get(url, params=params)
+    def __init__(self, supermercado, cliente):
+        super().__init__(supermercado, cliente)
+        self._usar_intelligent_search = True
+
+    def _json(self, ruta: str, params: dict) -> Any:
+        respuesta = self.cliente.get(self.supermercado.url + ruta, params=params)
         try:
-            datos = respuesta.json()
+            return respuesta.json()
         except ValueError as error:
             raise ErrorDeDescarga(f"{self.supermercado.nombre} no devolvió JSON válido") from error
-        return parsear_productos_vtex(datos, self.supermercado.url)
+
+    def _buscar_intelligent_search(self, termino: str) -> Any:
+        return self._json(RUTA_INTELLIGENT_SEARCH, {"query": termino, "count": MAXIMO_RESULTADOS})
+
+    def _buscar_catalogo(self, termino: str) -> Any:
+        primera_palabra = termino.split()[0]
+        return self._json(
+            RUTA_CATALOGO, {"ft": primera_palabra, "_from": 0, "_to": MAXIMO_RESULTADOS - 1}
+        )
+
+    def buscar(self, termino: str) -> list[ProductoTienda]:
+        if self._usar_intelligent_search:
+            try:
+                return parsear_productos_vtex(self._buscar_intelligent_search(termino), self.supermercado.url)
+            except ErrorDeDescarga as error:
+                log.warning(
+                    "%s: Intelligent Search falló (%s). Se usará la API de catálogo.",
+                    self.supermercado.nombre, error,
+                )
+                self._usar_intelligent_search = False
+        return parsear_productos_vtex(self._buscar_catalogo(termino), self.supermercado.url)

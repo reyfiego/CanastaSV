@@ -8,6 +8,8 @@ from urllib3.util.retry import Retry
 
 from canastasv.config import Ajustes
 
+CARACTERES_DE_DETALLE = 200
+
 
 class ErrorDeDescarga(RuntimeError):
     """Se lanza cuando una página no se pudo descargar tras los reintentos."""
@@ -20,9 +22,7 @@ class ClienteHttp:
         self._ajustes = ajustes
         self._ultima_peticion = 0.0
         self._sesion = requests.Session()
-        self._sesion.headers.update(
-            {"User-Agent": ajustes.user_agent, "Accept-Language": "es-SV,es;q=0.9"}
-        )
+        self._sesion.headers.update({"User-Agent": ajustes.user_agent, "Accept": "application/json, text/html"})
         reintentos = Retry(
             total=3,
             backoff_factor=2,
@@ -42,7 +42,10 @@ class ClienteHttp:
         self._esperar_turno()
         try:
             respuesta = self._sesion.get(url, params=params, timeout=self._ajustes.timeout)
-            respuesta.raise_for_status()
         except requests.RequestException as error:
-            raise ErrorDeDescarga(f"No se pudo descargar {url}: {error}") from error
+            raise ErrorDeDescarga(f"No se pudo conectar con {url}: {error}") from error
+        if not respuesta.ok:
+            # Se incluye el inicio de la respuesta: suele explicar por qué el servidor la rechazó.
+            detalle = " ".join(respuesta.text[:CARACTERES_DE_DETALLE].split())
+            raise ErrorDeDescarga(f"{respuesta.status_code} en {respuesta.url} — {detalle}")
         return respuesta
