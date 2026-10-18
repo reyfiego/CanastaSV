@@ -6,6 +6,12 @@ CanastaSV consulta todos los días los precios publicados en las tiendas en lín
 
 Proyecto final de Programación Computacional III.
 
+**🌐 Pruébalo en línea: [canastasv.onrender.com](https://canastasv.onrender.com)**
+
+<img src="docs/img/qr-canastasv.png" alt="Código QR a canastasv.onrender.com" width="180">
+
+> El sitio usa el plan gratuito de Render: si nadie lo ha visitado en los últimos 15 minutos, la primera carga tarda cerca de un minuto.
+
 ## Qué hace
 
 - **Recolecta** los precios de una lista de productos de la canasta básica en 4 supermercados.
@@ -103,11 +109,13 @@ python -m pytest
 
 ## Publicación
 
-El dashboard se publica gratis en [Render](https://render.com) con la configuración de `render.yaml`:
+El dashboard está publicado en **https://canastasv.onrender.com**, gratis en [Render](https://render.com), con la configuración de `render.yaml`:
 
 - Render instala `requirements.txt` y arranca `uvicorn` con Python 3.12 (`.python-version`).
 - Cada commit a `main` vuelve a publicar el sitio. Como la recolección diaria hace un commit con la base de datos, la página se actualiza sola cada mañana.
 - En el plan gratuito el servicio se duerme tras 15 minutos sin visitas y tarda cerca de un minuto en despertar con la siguiente visita.
+- La API también está disponible en línea, con documentación interactiva en [canastasv.onrender.com/docs](https://canastasv.onrender.com/docs).
+- El código QR está en `docs/img/qr-canastasv.png` (y en SVG para imprimir en grande).
 
 ## Agregar o ajustar productos
 
